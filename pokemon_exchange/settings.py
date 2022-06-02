@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "tinymce",
     # project apps
+    "mercato",
 ]
 
 MIDDLEWARE = [
