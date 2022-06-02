@@ -5,5 +5,5 @@ from . import views
 app_name = "user_messages"
 
 urlpatterns = [
-    path("", views.IndexView.as_view(), name="message_index"),
+    path("", views.IndexView.as_view(), name="messages_index"),
 ]
