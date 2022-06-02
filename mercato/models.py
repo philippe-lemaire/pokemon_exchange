@@ -14,31 +14,31 @@ from .system_choices import system_choices
 
 class Offer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pokemon_name = models.CharField(max_length=4, choices=pokemon_choices, default=1)
+    pokemon_name = models.IntegerField(choices=pokemon_choices, default=1)
     pokemon_level = models.IntegerField(
         default=1, validators=[MaxValueValidator(100), MinValueValidator(1)]
     )
     pokemon_shiny = models.BooleanField(default=False)
     pokemon_ability = models.CharField(blank=True, max_length=200)
-    pokemon_nature = models.CharField(max_length=2, choices=nature_choices, blank=True)
-    system = models.CharField(max_length=1, choices=system_choices, default=5)
+    pokemon_nature = models.IntegerField(choices=nature_choices, blank=True)
+    system = models.IntegerField(choices=system_choices, default=5)
     lat = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
     lon = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
     html = HTMLField()
 
     def __str__(self):
-        return f"{self.pokemon_name} de niveau {self.pokemon_level} proposé par {self.user}."
+        return f"{pokemon_choices[self.pokemon_name -1][1]} de niveau {self.pokemon_level} proposé par {self.user}."
 
 
 class Request(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pokemon_name = models.CharField(max_length=4, choices=pokemon_choices, default=1)
+    pokemon_name = models.IntegerField(choices=pokemon_choices, default=1)
     pokemon_shiny = models.BooleanField(default=False)
     pokemon_ability = models.CharField(blank=True, max_length=200)
-    pokemon_nature = models.CharField(max_length=2, choices=nature_choices, blank=True)
+    pokemon_nature = models.IntegerField(choices=nature_choices, blank=True)
     lat = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
     lon = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
     html = HTMLField()
 
     def __str__(self):
-        return f"{self.pokemon_name} cherché par {self.user}."
+        return f"{pokemon_choices[self.pokemon_name -1][1]} cherché par {self.user}."
