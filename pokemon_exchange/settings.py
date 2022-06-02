@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "tinymce",
     # project apps
     "mercato",
+    "user_messages",
 ]
 
 MIDDLEWARE = [

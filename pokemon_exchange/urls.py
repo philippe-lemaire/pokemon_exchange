@@ -22,4 +22,5 @@ urlpatterns = [
     path("tinymce/", include("tinymce.urls")),
     path("", TemplateView.as_view(template_name="index.html"), name="index"),
     path("mercato/", include("mercato.urls")),
+    path("messages/", include("user_messages.urls")),
 ]
