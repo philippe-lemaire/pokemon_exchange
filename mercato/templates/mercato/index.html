@@ -2,14 +2,14 @@
 
 {% block content %}
 <h1>Pokemon Exchange mercato</h1>
-
+<h2>Offer List</h2>
 <ul>
     {% for offer in offer_list %}
-    <li>{{offer}}: {{offer.lat}} {{offer.lon}}</li>
+    <li>{{offer}}: {{offer.lon}} {{offer.lat}}</li>
     {% endfor %}
 </ul>
 
-<div id='map' style='width: 800px; height: 600px;'></div>
+<div id='map' style='width: 1200px; height: 800px;'></div>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoicGxlbWFpcmUiLCJhIjoiY2w0Y3VnMjY2MDI1YzNjbm91aTQ4M3lycSJ9.DUVehkW26kk5yKYhShO5kg';
     var map = new mapboxgl.Map({
@@ -21,7 +21,7 @@
     // marker for each offer in the queryset
     {% for offer in offer_list %}
     const marker_{{forloop.counter}} = new mapboxgl.Marker()
-        .setLngLat([{{offer.lat|stringformat:".2f"}}, {{offer.lon|stringformat:".2f"}} ])
+        .setLngLat([{{offer.lon|stringformat:".2f"}}, {{offer.lat|stringformat:".2f"}} ])
         .addTo(map);
     {% endfor %}
 </script>
