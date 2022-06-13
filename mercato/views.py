@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views import generic
+from .models import Offer, Request
 
 # Create your views here.
-from django.http import HttpResponse
 
 
-class IndexView(generic.TemplateView):
+class IndexView(generic.ListView):
+    model = Offer
     template_name = "mercato/index.html"
