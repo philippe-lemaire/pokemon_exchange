@@ -2,4 +2,35 @@
 
 {% block content %}
 <h1>Pokemon Exchange mercato</h1>
+
+<div id='map' style='width: 1200px; height: 800px;'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicGxlbWFpcmUiLCJhIjoiY2w0Y3VnMjY2MDI1YzNjbm91aTQ4M3lycSJ9.DUVehkW26kk5yKYhShO5kg';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [4.835659, 45.764043],
+        zoom: 12
+    });
+
+
+    // marker for each offer in the queryset
+    {% for offer in offer_list %}
+    // prepare the popup
+    const popup_{{forloop.counter}} = new mapboxgl.Popup({ offset: 25 }).setText(
+    '{{offer}}'
+    );
+    
+    // create DOM element for the marker
+    const el_{{forloop.counter}} = document.createElement('div');
+    el_{{forloop.counter}}.id = 'marker';
+
+    const marker_{{forloop.counter}} = new mapboxgl.Marker()
+        .setLngLat([{{offer.lon|stringformat:".2f"}}, {{offer.lat|stringformat:".2f"}} ])
+        .setPopup(popup_{{forloop.counter}})
+        .addTo(map);
+    {% endfor %}
+</script>
+
+
 {% endblock %}
