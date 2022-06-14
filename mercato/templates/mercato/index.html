@@ -13,24 +13,24 @@
         zoom: 12
     });
 
-
+    
     // marker for each offer in the queryset
-    {% for offer in offer_list %}
+    // {% for offer in offer_list %}
     // prepare the popup
-    const popup_{{forloop.counter}} = new mapboxgl.Popup({ offset: 25 }).setText(
-    "{{offer}} <a href='#'>{{offer.user}}</a>"
-    );
+    //const popup_{{forloop.counter}} = new mapboxgl.Popup({ offset: 25 }).setText(
+    //"{{offer}} <a href='#'>{{offer.user}}</a>"
+    //);
     
     // create DOM element for the marker
-    const el_{{forloop.counter}} = document.createElement('div');
-    el_{{forloop.counter}}.id = 'marker';
+    //const el_{{forloop.counter}} = document.createElement('div');
+    //el_{{forloop.counter}}.id = 'marker';
 
-    const marker_{{forloop.counter}} = new mapboxgl.Marker()
-        .setLngLat([{{offer.lon|stringformat:".2f"}}, {{offer.lat|stringformat:".2f"}} ])
-        .setPopup(popup_{{forloop.counter}})
-        .addTo(map);
-    {% endfor %}
-
+    //const marker_{{forloop.counter}} = new mapboxgl.Marker()
+    //    .setLngLat([{{offer.lon|stringformat:".2f"}}, {{offer.lat|stringformat:".2f"}} ])
+    //    .setPopup(popup_{{forloop.counter}})
+    //    .addTo(map);
+    //{% endfor %}
+ 
 
     map.on('load', () => {
         map.addSource('places', {
@@ -41,18 +41,20 @@
         'data': {
         'type': 'FeatureCollection',
         'features': [
+            {% for offer in offer_list %}
         {
         'type': 'Feature',
         'properties': {
         'description':
-        '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
-        'icon': 'theatre-15'
+        "{{offer.html|safe}}",
+        'icon': 'drinking-water-15'
         },
         'geometry': {
         'type': 'Point',
-        'coordinates': [-77.038659, 38.931567]
+        'coordinates': [{{offer.lon|stringformat:".2f"}}, {{offer.lat|stringformat:".2f"}} ]
         }
         },
+        {% endfor %}
         ]
 }
 });
